@@ -24,7 +24,8 @@ async function askAI() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer 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" // <-- Hier deinen API Key einfügen
+                "Authorization": "Bearer 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",  // <-- hier deinen API-Key einsetzen
+                "OpenAI-Project": "default" // <-- falls dein Projekt „default“ heißt, sonst Name anpassen!
             },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
@@ -37,7 +38,6 @@ async function askAI() {
 
         const data = await response.json();
 
-        // Prüfen ob die Antwort da ist
         if (data.choices && data.choices.length > 0) {
             answerDiv.innerText = data.choices[0].message.content;
         } else {
