@@ -39,7 +39,30 @@ async function askAI() {
         answerDiv.innerText = "Fehler: " + error;
     }
 }
+<script>
+async function askAI() {
+    const question = document.getElementById("question").value;
+    const answerDiv = document.getElementById("answer");
+    answerDiv.innerText = "Warte auf Antwort...";
+
+    try {
+        const response = await fetch("https://DEIN-SERVER.onrender.com/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question })
+        });
+
+        const text = await response.text(); // <- Nur Text anzeigen
+        console.log("Server Response:", text);
+        answerDiv.innerText = text;
+
+    } catch (error) {
+        console.error(error);
+        answerDiv.innerText = "Fehler: " + error;
+    }
+}
 </script>
+
 
 </body>
 </html>
