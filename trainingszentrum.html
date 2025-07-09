@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trainingszentrum - Mathe Nachhilfe</title>
+</head>
+<body>
+  <h1>Trainingszentrum: Mathe-Hausaufgabenhilfe</h1>
+
+  <textarea id="question" rows="5" cols="50" placeholder="Gib hier deine Matheaufgabe ein..."></textarea>
+  <br><br>
+  <button onclick="askAI()">Frage die KI</button>
+
+  <pre id="answer">Antwort kommt hier...</pre>
+
+<script>
+async function askAI() {
+    const question = document.getElementById("question").value;
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer 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"  // <<< Hier trägst du deinen OpenAI API Key ein
+        },
+        body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{
+                role: "user",
+                content: `Erkläre diese Matheaufgabe für eine 10. Klässlerin Schritt für Schritt: ${question}`
+            }]
+        })
+    });
+
+    const data = await response.json();
+    document.getElementById("answer").innerText = data.choices[0].message.content;
+}
+</script>
+
+</body>
+</html>
