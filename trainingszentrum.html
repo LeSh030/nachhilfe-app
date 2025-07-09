@@ -20,7 +20,7 @@ async function askAI() {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer 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"  // <<< Hier trägst du deinen OpenAI API Key ein
+            "Authorization": "Bearer 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"  // Hier deinen API-Key einfügen
         },
         body: JSON.stringify({
             model: "gpt-3.5-turbo",
@@ -31,8 +31,19 @@ async function askAI() {
         })
     });
 
+    if (!response.ok) {
+        const errorText = await response.text();
+        document.getElementById("answer").innerText = "Fehler: " + response.status + "\n" + errorText;
+        return;
+    }
+
     const data = await response.json();
-    document.getElementById("answer").innerText = data.choices[0].message.content;
+
+    // Hier den Inhalt korrekt auslesen
+    const message = data.choices[0].message.content;
+
+    // Antwort anzeigen
+    document.getElementById("answer").innerText = message;
 }
 </script>
 
