@@ -20,20 +20,10 @@ async function askAI() {
     answerDiv.innerText = "Warte auf Antwort...";
 
     try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        const response = await fetch("https://DEINE-RENDER-URL.onrender.com/ask", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer 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",  // <-- hier deinen API-Key einsetzen
-                "OpenAI-Project": "default" // <-- falls dein Projekt „default“ heißt, sonst Name anpassen!
-            },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [{
-                    role: "user",
-                    content: `Erkläre diese Matheaufgabe für eine 10. Klässlerin Schritt für Schritt: ${question}`
-                }]
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question })
         });
 
         const data = await response.json();
