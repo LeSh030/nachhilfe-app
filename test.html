@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mathe Testzentrum</title>
+</head>
+<body>
+<h1>Mathe Testzentrum</h1>
+
+<form id="quizForm">
+  <p>1. Was ist die Lösung von 5 + 3?</p>
+  <input type="text" id="q1"><br><br>
+
+  <p>2. Berechne: 4 * 6</p>
+  <input type="text" id="q2"><br><br>
+
+  <p>3. Was ist die Wurzel aus 9?</p>
+  <input type="text" id="q3"><br><br>
+
+  <button type="button" onclick="submitQuiz()">Test abschließen</button>
+</form>
+
+<h2 id="result"></h2>
+
+<script>
+// XP & Level laden
+let xp = parseInt(localStorage.getItem('xp')) || 0;
+let level = parseInt(localStorage.getItem('level')) || 1;
+
+function submitQuiz() {
+    let score = 0;
+
+    if (document.getElementById("q1").value == "8") score++;
+    if (document.getElementById("q2").value == "24") score++;
+    if (document.getElementById("q3").value == "3") score++;
+
+    let newXp = score * 10; // 10 XP pro richtiger Antwort
+    xp += newXp;
+
+    // Level-Up ab 50 XP
+    if (xp >= level * 50) {
+        level++;
+        alert("🎉 Level Up! Du bist jetzt Level " + level);
+    }
+
+    // XP & Level speichern
+    localStorage.setItem('xp', xp);
+    localStorage.setItem('level', level);
+
+    document.getElementById("result").innerText =
+      "Du hast " + score + " von 3 richtig. XP: " + xp + " | Level: " + level;
+}
+</script>
+
+</body>
+</html>
